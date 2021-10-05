@@ -1,4 +1,4 @@
-package com.qa.spring;
+package com.qa.spring.data;
 
 public class Marsupial {
 
