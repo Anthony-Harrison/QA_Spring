@@ -3,6 +3,8 @@ package com.qa.spring;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,22 +46,30 @@ public class DFEController {
 	}
 
 	@PostMapping("/createMarsupial")
-	public Marsupial createMarsupial(@RequestBody Marsupial marsupial) {
+	public ResponseEntity<Marsupial> createMarsupial(@RequestBody Marsupial marsupial) {
 		System.out.println("CREATED MARSUPIAL: " + marsupial);
 		this.marsupials.add(marsupial);
-		return this.marsupials.get(this.marsupials.size() - 1);
+		Marsupial responseBody = this.marsupials.get(this.marsupials.size() - 1);
+		ResponseEntity<Marsupial> response = new ResponseEntity<Marsupial>(responseBody, HttpStatus.CREATED);
+		return response;
 	}
 
 	@PutMapping("/updateMarsupial/{id}")
-	public Marsupial updateMarsupial(@RequestBody Marsupial marsupial, @PathVariable int id) {
+	public ResponseEntity<Marsupial> updateMarsupial(@RequestBody Marsupial marsupial, @PathVariable int id) {
 		System.out.println("UPDATED MARSUPIAL: " + marsupial);
 		System.out.println("ID: " + id);
-		return this.marsupials.set(id, marsupial);
+		Marsupial responseBody = this.marsupials.set(id, marsupial);
+		ResponseEntity<Marsupial> response = new ResponseEntity<Marsupial>(responseBody, HttpStatus.ACCEPTED);
+		return response;
 	}
 
 	@DeleteMapping("/deleteMarsupial/{id}")
-	public void deleteMarsupial(@PathVariable int id) {
+	public ResponseEntity<Marsupial> deleteMarsupial(@PathVariable int id) {
+		Marsupial responseBody = this.marsupials.get(id);
 		this.marsupials.remove(id);
+		ResponseEntity<Marsupial> response = new ResponseEntity<Marsupial>(responseBody, HttpStatus.NO_CONTENT);
+
+		return response;
 
 	}
 }
