@@ -3,12 +3,11 @@ package com.qa.spring.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.qa.spring.data.Marsupial;
 
-@Primary
+//@Primary
 @Service // Spring makes an instance of this class
 public class DFEServiceList implements DFEService {
 

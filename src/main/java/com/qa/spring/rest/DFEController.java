@@ -38,33 +38,52 @@ public class DFEController {
 	}
 
 	@GetMapping("/getMarsupial/{id}") // 200
-	public Marsupial getMarsupialByIndex(@PathVariable Integer id) {
-
-		return this.service.getMarsupialByIndex(id);
+	public Marsupial getMarsupialByIndex(@PathVariable Integer id) throws IndexOutOfBoundsException {
+		try {
+			return this.service.getMarsupialByIndex(id);
+		} catch (Exception e) {
+			System.out.println("No entry at this position");
+		}
+		return null;
 	}
 
 	@GetMapping("/getAllMarsupials") // 200
 	public List<Marsupial> getAllMarsupials() {
 
 		return this.service.getAllMarsupials();
+
 	}
 
 	@PostMapping("/createMarsupial") // 201
 	public ResponseEntity<Marsupial> createMarsupial(@RequestBody Marsupial marsupial) {
+
 		Marsupial responseBody = this.service.createMarsupial(marsupial);
 		ResponseEntity<Marsupial> response = new ResponseEntity<Marsupial>(responseBody, HttpStatus.CREATED);
 		return response;
+
 	}
 
 	@PutMapping("/updateMarsupial/{id}") // 202 - Accepted
-	public ResponseEntity<Marsupial> updateMarsupial(@RequestBody Marsupial marsupial, @PathVariable Integer id) {
-		Marsupial responseBody = this.service.updateMarsupial(marsupial, id); // replaces the marsupial at that index
-		return new ResponseEntity<Marsupial>(responseBody, HttpStatus.ACCEPTED);
+	public ResponseEntity<Marsupial> updateMarsupial(@RequestBody Marsupial marsupial, @PathVariable Integer id)
+			throws IndexOutOfBoundsException {
+		try {
+			Marsupial responseBody = this.service.updateMarsupial(marsupial, id); // replaces the marsupial at that
+																					// index
+			return new ResponseEntity<Marsupial>(responseBody, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			System.out.println("Cannot update");
+		}
+		return null;
 	}
 
 	@DeleteMapping("/removeMarsupial/{id}") // 204 - No content
-	public ResponseEntity<?> deleteMarsupial(@PathVariable Integer id) {
-		this.service.deleteMarsupial(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 causes the body to be ignored
+	public ResponseEntity<?> deleteMarsupial(@PathVariable Integer id) throws IndexOutOfBoundsException {
+		try {
+			this.service.deleteMarsupial(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 causes the body to be ignored
+		} catch (Exception e) {
+			System.out.println("Nothing to remove");
+		}
+		return null;
 	}
 }
