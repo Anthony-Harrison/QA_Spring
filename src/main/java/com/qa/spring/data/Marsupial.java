@@ -25,6 +25,14 @@ public class Marsupial {
 		return name;
 	}
 
+	public Marsupial(Integer id, String name, String species, String colour) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.species = species;
+		this.colour = colour;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
