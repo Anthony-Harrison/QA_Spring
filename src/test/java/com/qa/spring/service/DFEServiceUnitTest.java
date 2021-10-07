@@ -56,9 +56,10 @@ public class DFEServiceUnitTest {
 	@Test
 	void testGetAllMarsupials() {
 		final Marsupial savedMarsupial = new Marsupial(1, "Wally", "Wallabee", "grey");
-
 		List<Marsupial> marsupialList = new ArrayList<>();
 		marsupialList.add(savedMarsupial);
+//		The below it the same as above just done in a different way.
+//		List<Marsupial> marsupialList = List.of(new Marsupial(1, "Wally", "Wallabee", "grey"), new Marsupial(2, "Anth", "Wallaby", "Brown");
 
 		Mockito.when(this.repo.findAll()).thenReturn(marsupialList);
 		assertEquals(marsupialList, this.service.getAllMarsupials());
