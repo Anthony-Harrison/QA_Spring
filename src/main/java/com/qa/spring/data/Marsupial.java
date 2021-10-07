@@ -1,5 +1,7 @@
 package com.qa.spring.data;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -64,6 +66,24 @@ public class Marsupial {
 	@Override
 	public String toString() {
 		return "Marsupial [name=" + name + ", species=" + species + ", colour=" + colour + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(colour, id, name, species);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Marsupial other = (Marsupial) obj;
+		return Objects.equals(colour, other.colour) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(species, other.species);
 	}
 
 }
